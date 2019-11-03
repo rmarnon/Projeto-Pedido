@@ -29,7 +29,7 @@ public class ProjetoPedidoApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		
 		Categoria cat1 = new Categoria(null, "Informatica");
-		Categoria cat2 = new Categoria(null, "Escritorio");
+		Categoria cat2 = new Categoria(null, "Eletronico");
 		Categoria cat3 = new Categoria(null, "Games");
 		
 		Produto p1 = new Produto(null, "Monitor", 500.00);
