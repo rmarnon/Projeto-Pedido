@@ -2,6 +2,8 @@ package com.Rodrigo.Projeto_Pedido.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,6 +23,9 @@ public class Pedido implements Serializable {
 	private Integer id;
 	private Date instante;
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+	private Pagamento pagamento;
+		
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")	
 	private Cliente cliente;
@@ -29,8 +34,7 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "endereco_de_etrega_id")
 	private Endereco enderecoDeEntrega;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
-	private Pagamento pagamento;
+	private Set<ItemPedido> itens = new HashSet<>();
 	
 	public Pedido() {
 	}
