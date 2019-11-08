@@ -2,9 +2,14 @@ package com.Rodrigo.Projeto_Pedido.domain;
 
 import java.io.Serializable;
 
-public class ItemPedido implements Serializable{
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+@Entity
+public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
 	private Double desconto;
@@ -18,7 +23,16 @@ public class ItemPedido implements Serializable{
 		this.desconto = desconto;
 		this.quantidade = quantidade;
 		this.precoDoProduto = precoDoProduto;
-		this.id = id;
+		id.setPedido(pedido);
+		id.setProduto(produto);
+	}
+	
+	public Pedido getPedido() {
+		return id.getPedido();
+	}
+	
+	public Produto getprProduto() {
+		return id.getProduto();
 	}
 
 	public Double getDesconto() {

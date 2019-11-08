@@ -13,6 +13,7 @@ import com.Rodrigo.Projeto_Pedido.domain.Cidade;
 import com.Rodrigo.Projeto_Pedido.domain.Cliente;
 import com.Rodrigo.Projeto_Pedido.domain.Endereco;
 import com.Rodrigo.Projeto_Pedido.domain.Estado;
+import com.Rodrigo.Projeto_Pedido.domain.ItemPedido;
 import com.Rodrigo.Projeto_Pedido.domain.Pagamento;
 import com.Rodrigo.Projeto_Pedido.domain.PagamentoBoleto;
 import com.Rodrigo.Projeto_Pedido.domain.PagamentoCartao;
@@ -25,6 +26,7 @@ import com.Rodrigo.Projeto_Pedido.repositories.CidadeRepository;
 import com.Rodrigo.Projeto_Pedido.repositories.ClienteRepository;
 import com.Rodrigo.Projeto_Pedido.repositories.EnderecoRepository;
 import com.Rodrigo.Projeto_Pedido.repositories.EstadoRepository;
+import com.Rodrigo.Projeto_Pedido.repositories.ItemPedidoRepository;
 import com.Rodrigo.Projeto_Pedido.repositories.PagamentoRepository;
 import com.Rodrigo.Projeto_Pedido.repositories.PedidoReppository;
 import com.Rodrigo.Projeto_Pedido.repositories.ProdutoRepository;
@@ -50,6 +52,8 @@ public class ProjetoPedidoApplication implements CommandLineRunner{
 	private PagamentoRepository pagamentoRepository;
 	@Autowired
 	private PedidoReppository pedidorepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoPedidoApplication.class, args);
@@ -124,6 +128,21 @@ public class ProjetoPedidoApplication implements CommandLineRunner{
 		
 		pedidorepository.saveAll(Arrays.asList(pe1, pe2));
 		pagamentoRepository.saveAll(Arrays.asList(pag1, pag2));
+		
+		//-----------------------------------------------------------------
+		
+		ItemPedido it1 = new ItemPedido(pe1, p1, 5.00, 1, 500.00);
+		ItemPedido it2 = new ItemPedido(pe1, p2, 2.00, 2, 50.00);
+		ItemPedido it3 = new ItemPedido(pe2, p3, 10.00, 1, 1200.00);
+		
+		pe1.getItens().addAll(Arrays.asList(it1, it2));
+		pe2.getItens().add(it3);
+		
+		p1.getItens().add(it1);
+		p2.getItens().add(it2);
+		p3.getItens().add(it3);
+		
+		itemPedidoRepository.saveAll(Arrays.asList(it1, it2, it3));
 		
 	}
 
